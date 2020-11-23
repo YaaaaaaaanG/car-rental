@@ -11,7 +11,7 @@
     <!--引入spring-context.xml-->
     <import resource="classpath:spring-context.xml"/>
     <!--扫描加了注解的类的包-->
-    <context:component-scan base-package="com.qf.Controller"></context:component-scan>
+    <context:component-scan base-package="com.qf.controller"></context:component-scan>
     <!--注册注解驱动开发-->
     <mvc:annotation-driven></mvc:annotation-driven>
 
