@@ -1,0 +1,56 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+							http://www.springframework.org/schema/beans/spring-beans.xsd
+							http://www.springframework.org/schema/context
+							http://www.springframework.org/schema/context/spring-context.xsd
+							http://www.springframework.org/schema/mvc
+							http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <!--引入spring-context.xml-->
+    <import resource="classpath:spring-context.xml"/>
+    <!--扫描加了注解的类的包-->
+    <context:component-scan base-package="com.qf.Controller"></context:component-scan>
+    <!--注册注解驱动开发-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+
+    <!--
+        视图解析器
+            1.捕获后端控制器Controller 的返回值(页面名字)index
+            2.解析:在返回之后拼接 ==>"/index.jsp"
+    -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--页面的存储路径  (字首)   -->
+        <property name="prefix" value="/"></property>
+        <!--页面的后缀名-->
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+
+    <!--配置那些方法进行拦截-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- /** 代表所有方法进行拦截-->
+            <mvc:mapping path="/**"/>
+            <!-- mvc:exclude-mapping 代表放行,不进行拦截 -->
+            <mvc:exclude-mapping path="/user/*"></mvc:exclude-mapping>
+            <!--拦截器引入-->
+            <bean class="com.qf.interceptor.MyInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <!--
+        额外增加一个handle
+        优先级最低,如果找不到对应的handel就会执行本handle
+        进行资源加载
+     -->
+    <mvc:default-servlet-handler/>
+    <!-- 静态资源路径配置
+        mapping 访问路径
+        location 静态资源的存放地址
+        <mvc:resources mapping="/html/img/**" location="/img/"></mvc:resources>
+     -->
+    <!-- 文件上传解析器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="1048576"></property>
+    </bean>
+</beans>
