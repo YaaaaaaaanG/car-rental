@@ -5,6 +5,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 自定义拦截器
@@ -14,7 +15,17 @@ public class MyInterceptor implements HandlerInterceptor {
     //在controller调用之前先来执行
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        return true;
+        HttpSession session = request.getSession();
+        Object tel = session.getAttribute("tel");
+        if(tel != null){
+            return true;
+        }
+
+        //根据不同的返回状态进行拦截 true放行 ,false拦截
+
+        request.getRequestDispatcher("/login.jsp").forward(request,response);
+
+        return false;
     }
 
     //在controller方法执行后执行
