@@ -21,6 +21,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public List<Car> selectAllByNumber(){
+        return carMapper.selectAllByNumber();
+    }
+
+    @Override
     public Car selectById(Integer id) {
         return carMapper.selectById(id);
     }

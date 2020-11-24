@@ -15,7 +15,12 @@ public class CityServiceImpl implements CityService {
     CityMapper cityMapper;
 
     @Override
-    public List<City> selectAllCity() {
-        return cityMapper.selectAllCity();
+    public List<City> selectAllCity(Integer pid) {
+        return cityMapper.selectAllCity(pid);
+    }
+
+    @Override
+    public City selectById(Integer id) {
+        return cityMapper.selectById(id);
     }
 }

@@ -1,15 +1,14 @@
 package com.qf.controller;
 
+import com.qf.common.CityBaseResp;
 import com.qf.pojo.City;
 import com.qf.service.CityService;
-import com.qf.service.Impl.CityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/city")
@@ -19,10 +18,24 @@ public class CityController {
     @Autowired
     private CityService cityService;
 
-    @RequestMapping(value = "/selectAllCity", method = RequestMethod.GET)
-    public List<City> selectAllCity(Model model, HttpServletRequest req){
-        List<City> cities = cityService.selectAllCity();
-        model.addAttribute("city",cities);
-        return cities;
+    @RequestMapping(value = "/selectAllCity", method = RequestMethod.POST)
+    public CityBaseResp selectAllCity(Integer pid){
+        List<City> cities = cityService.selectAllCity(pid);
+        CityBaseResp cityBaseResp = new CityBaseResp();
+        cityBaseResp.setInfo(cities);
+        return cityBaseResp;
+    }
+
+    @RequestMapping(value = "/selectById",method = RequestMethod.GET)
+    public CityBaseResp selectById(Integer getid,Integer backid){
+        City getCity = cityService.selectById(getid);
+        City backCity = cityService.selectById(backid);
+        CityBaseResp cityBaseResp = new CityBaseResp();
+        cityBaseResp.setCode(1);
+        List list = new ArrayList();
+        list.add(getCity);
+        list.add(backCity);
+        cityBaseResp.setInfo(list);
+        return cityBaseResp;
     }
 }

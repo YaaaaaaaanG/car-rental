@@ -17,8 +17,17 @@ public class CarController {
     private CarService carService;
 
     @RequestMapping("/selectAllByPrice")
-    public BaseResp selectAll(){
+    public BaseResp selectAllByPrice(){
         List<Car> cars = carService.selectAllByPrice();
+        BaseResp baseResp = new BaseResp();
+        baseResp.setCode(1);
+        baseResp.setInfo(cars);
+        return baseResp;
+    }
+
+    @RequestMapping("/selectAllByNumber")
+    public BaseResp selectAllByNumber(){
+        List<Car> cars = carService.selectAllByNumber();
         BaseResp baseResp = new BaseResp();
         baseResp.setCode(1);
         baseResp.setInfo(cars);

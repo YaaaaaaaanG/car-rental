@@ -4,22 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.dao.CarMapper">
 
-    <resultMap id="BaseResult" type="car">
-        <id column="id" property="id"></id>
-        <result column="name" property="name"></result>
-        <result column="type" property="type"></result>
-        <result column="sitnum" property="sitnum"></result>
-        <result column="cid" property="cid"></result>
-        <result column="price" property="price"></result>
-        <result column="number" property="number"></result>
-        <result column="picture" property="picture"></result>
-    </resultMap>
-
-    <select id="selectAllByPrice" resultMap="BaseResult">
+    <select id="selectAllByPrice" resultType="car">
         select * from sys_car order by price;
     </select>
 
-    <select id="selectById" resultMap="BaseResult">
+    <select id="selectAllByNumber" resultType="car">
+        select * from sys_car order by number;
+    </select>
+
+    <select id="selectById" resultType="car">
         select * from sys_car where id=#{id};
     </select>
 

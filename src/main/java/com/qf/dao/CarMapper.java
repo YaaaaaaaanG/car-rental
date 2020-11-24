@@ -11,5 +11,7 @@ public interface CarMapper {
 
     List<Car> selectAllByPrice();
 
+    List<Car> selectAllByNumber();
+
     Car selectById(@Param("id")Integer id);
 }

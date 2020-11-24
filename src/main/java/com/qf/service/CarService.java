@@ -8,5 +8,7 @@ public interface CarService {
 
     List<Car> selectAllByPrice();
 
+    List<Car> selectAllByNumber();
+
     Car selectById(Integer id);
 }
