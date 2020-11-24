@@ -93,6 +93,7 @@
     <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
         <ul class="layui-tab-title">
             <li class="layui-this">按租金排序</li>
+
             <li>按热度排序</li>
         </ul>
         <div class="layui-tab-content">
@@ -183,7 +184,7 @@
     });
 
    var vm2 = new Vue({
-       el:'#carlist',
+        el:'#carlist',
         data:{
            sites : [],
         },
@@ -195,13 +196,13 @@
 
     });
 
-    var vm3 = new Vue({
-        el:'#carlis',
-        data:{
-            cars : [],
-        },
+   var vm3 = new Vue({
+       el:'#carlis',
+       data:{
+           cars : [],
+       },
 
-    });
+   });
 
 </script>
 
@@ -235,7 +236,7 @@
         var getid = window.location.search;
         $.ajax({
             type:"get",
-            url:"/carsys/car/price.do"+getid,
+            url:"/car/selectAllByPrice",
             dataType:"json",
             success:function(data){
                 if(data.code==1) {
@@ -244,7 +245,7 @@
                 }
             },
             error : function(){
-                alert("ajax加载失败");
+                alert("按租金查询失败");
             }
 
         })
