@@ -16,14 +16,14 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        Object username = session.getAttribute("username");
-        if(username != null){
+        Object tel = session.getAttribute("tel");
+        if(tel != null){
             return true;
         }
 
         //根据不同的返回状态进行拦截 true放行 ,false拦截
 
-        request.getRequestDispatcher("/index.jsp").forward(request,response);
+        request.getRequestDispatcher("/login.jsp").forward(request,response);
 
         return false;
     }
