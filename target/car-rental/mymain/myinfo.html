@@ -70,13 +70,11 @@
                                         </tr>
                                         <tr>
                                             <td>邮箱：{{email}}</td>
-                                            <td><a href="#" style="color: orangered">修改</a></td>
+                                            <td><button data-method="offset1" data-type="auto" class="layui-btn layui-btn-normal">修改</button></td>
                                         </tr>
                                         <tr>
                                             <td></td>
-                                            <td>
-                                                <a href="#" style="color: orangered">修改密码</a>
-                                            </td>
+                                            <td><button data-method="offset2" data-type="auto" class="layui-btn layui-btn-normal">修改密码</button></td>
                                         </tr>
                                     </table>
                         </div>
@@ -105,7 +103,7 @@
     $(function () {
         $.ajax({
             type:"get",
-            url:"/carsys/user/denglu.do",
+            url:"/user/userInfo",
             dataType:"json",
             success:function(data){
                 //id为0时为父类
@@ -138,13 +136,89 @@
                     type: 1
                     ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
                     ,id: 'layerDemo'+type //防止重复弹出
-                    ,content: '<div style="width: 300px; height: 200px;">请输入修改后的手机号：<br><form><input type="text" name="tel" id="tel"></form></div>'
+                    ,content: '<div style="width: 300px; height: 200px;margin: auto">请输入修改后的手机号：<br><form><input type="text" name="tel" id="tel"></form></div>'
                     ,btn: '修改'
                     ,btnAlign: 'c' //按钮居中
                     ,shade: 0 //不显示遮罩
                     ,yes: function(){
                         $.ajax({
-                            url:"/carsys/user/update.do",
+                            url:"/user/updateUser",
+                            type:"post",
+                            data:$("form").serialize(),
+                            dataType:'json',
+                            success:function(res) {
+                                if(res.code == 1) {
+                                    alert("修改成功！");
+                                    window.location.href=("myinfo.html");
+                                } else {
+                                    layer.alert(res.info);
+                                }
+                            },
+                            error: function() {
+                                elert("ajax错误");
+                            }
+                        });
+
+
+
+
+                    }
+                });
+            }
+
+            ,offset1: function(othis){
+                var type = othis.data('type')
+                    ,text = othis.text();
+
+                layer.open({
+                    type: 1
+                    ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    ,id: 'layerDemo'+type //防止重复弹出
+                    ,content: '<div style="width: 300px; height: 200px;margin: auto">请输入修改后的邮箱：<br><form><input type="text" name="email" id="email"></form></div>'
+                    ,btn: '修改'
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0 //不显示遮罩
+                    ,yes: function(){
+                        $.ajax({
+                            url:"/user/updateUser",
+                            type:"post",
+                            data:$("form").serialize(),
+                            dataType:'json',
+                            success:function(res) {
+                                if(res.code == 1) {
+                                    alert("修改成功！");
+                                    window.location.href=("myinfo.html");
+                                } else {
+                                    layer.alert(res.info);
+                                }
+                            },
+                            error: function() {
+                                elert("ajax错误");
+                            }
+                        });
+
+
+
+
+                    }
+                });
+            }
+
+            ,offset2: function(othis){
+                var type = othis.data('type')
+                    ,text = othis.text();
+
+                layer.open({
+                    type: 1
+                    ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+                    ,id: 'layerDemo'+type //防止重复弹出
+                    ,content: '<div style="width: 300px; height: 200px;margin: auto">请输入修改后的密码：<br><form><input type="text" name="password" id="password"></form></div>'
+                    ,btn: '修改'
+                    ,btnAlign: 'c' //按钮居中
+                    ,shade: 0 //不显示遮罩
+                    ,yes: function(){
+                        $.ajax({
+                            url:"/user/updateUser",
                             type:"post",
                             data:$("form").serialize(),
                             dataType:'json',

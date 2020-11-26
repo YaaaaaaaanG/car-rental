@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.CarMapper">
+
+    <select id="selectAllByPrice" resultType="car">
+        select * from sys_car order by price;
+    </select>
+
+    <select id="selectAllByNumber" resultType="car">
+        select * from sys_car order by number;
+    </select>
+
+    <select id="selectById" resultType="car">
+        select * from sys_car where id=#{id};
+    </select>
+
+</mapper>

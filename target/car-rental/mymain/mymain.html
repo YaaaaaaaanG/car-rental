@@ -47,7 +47,7 @@
                         </dl>
                         <ul data-v-1cae2c34="" class="manNav">
                             <li data-v-1cae2c34="">
-                                <a data-v-1cae2c34="" href="orderManage.html" class="sel">订单管理</a>
+                                <a data-v-1cae2c34="" href="/mymain/mymain.html" class="sel">订单管理</a>
                             </li>
                              <li data-v-1cae2c34="">
                                  <a data-v-1cae2c34="" href="myinfo.html" class="">个人信息</a>
@@ -87,7 +87,7 @@
                                             <td>{{site.getcity}}</td>
                                             <td>{{site.backcity}}</td>
                                             <td>{{site.ostatus}}</td>
-                                            <td><a href="#" style="color:red">删除</a></td>
+                                            <td><span  @click="del(site.oid)" style="color:red;cursor: pointer">删除</span></td>
                                         </tr>
                                     </table>
 
@@ -118,6 +118,27 @@
         data:{
             obj:[],
         },
+        methods:{
+            del:function (oid) {
+                $.ajax({
+                    url:"/order/deleteById",
+                    data:{oid:oid},
+                    type:"post",
+                    dataType:"json",
+                    success:function (data) {
+                        if (data.code == 1){
+                            alert(data.info)
+                            window.location.href=("mymain.html");
+                        } else{
+                            alert(data.info)
+                        }
+                    },
+                    error:function () {
+                        alert("删除错误")
+                    }
+                })
+            }
+        },
     });
 
     $(function () {
@@ -126,7 +147,7 @@
     function loadData(page) {
         $.ajax({
             type:"get",
-            url:"/carsys/order/all.do?page="+page,
+            url:"/order/selectByLimit?page="+page,
             dataType:"json",
             async: false,
             success:function(data){

@@ -93,6 +93,7 @@
     <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
         <ul class="layui-tab-title">
             <li class="layui-this">按租金排序</li>
+
             <li>按热度排序</li>
         </ul>
         <div class="layui-tab-content">
@@ -183,7 +184,7 @@
     });
 
    var vm2 = new Vue({
-       el:'#carlist',
+        el:'#carlist',
         data:{
            sites : [],
         },
@@ -195,13 +196,17 @@
 
     });
 
-    var vm3 = new Vue({
-        el:'#carlis',
-        data:{
-            cars : [],
-        },
-
-    });
+   var vm3 = new Vue({
+       el:'#carlis',
+       data:{
+           cars : [],
+       },
+       methods:{
+           selectCar:function (id) {
+               window.location.href="../order/ordersubmit.html"+getid +"&cid=" +id;
+           }
+       },
+   });
 
 </script>
 
@@ -209,20 +214,20 @@
     $(function(){
         var getid = window.location.search;
         $.ajax({
-        type:"get",
-        url:"/carsys/city/citys.do"+getid,
+            type:"get",
+            url:"/city/selectById"+getid,
             dataType:"json",
             success:function(data){
                 if(data.code==1) {
                  var infos = data.info;
-                 var get = infos.getCity;
-                 var back = infos.backCity;
+                 var get = infos[0];
+                 var back = infos[1];
                  vm.getcitys = get.name;
                  vm.backcitys = back.name;
             }
         },
         error : function(){
-            alert("ajax加载失败");
+            alert("地址加载失败");
             }
 
             })
@@ -235,7 +240,7 @@
         var getid = window.location.search;
         $.ajax({
             type:"get",
-            url:"/carsys/car/price.do"+getid,
+            url:"/car/selectAllByPrice",
             dataType:"json",
             success:function(data){
                 if(data.code==1) {
@@ -244,7 +249,7 @@
                 }
             },
             error : function(){
-                alert("ajax加载失败");
+                alert("按租金查询失败");
             }
 
         })
@@ -257,7 +262,7 @@
         var getid = window.location.search;
         $.ajax({
             type:"get",
-            url:"/carsys/car/number.do"+getid,
+            url:"/car/selectAllByNumber",
             dataType:"json",
             success:function(data){
                 if(data.code==1) {
@@ -266,7 +271,7 @@
                 }
             },
             error : function(){
-                alert("ajax加载失败");
+                alert("按数量查加载失败");
             }
 
         })

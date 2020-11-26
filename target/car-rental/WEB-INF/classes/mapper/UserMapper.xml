@@ -2,37 +2,32 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.qf.dao.UserMapper">
 
-    <resultMap id="BaseResult" type="user">
-        <id column="id" property="id"></id>
-        <result column="tel" property="tel"></result>
-        <result column="password" property="password"></result>
-        <result column="email" property="email"></result>
-        <result column="invitation" property="invitation"></result>
-    </resultMap>
-
-    <select id="login" resultType="user">
-        select * from sys_user where tel=#{tel} and password=#{password}
-    </select>
-
-    <insert id="register" parameterType="user">
-        INSERT  INTO sys_user(tel,password,email,invitation) VALUES (#{tel},#{password},#{email},#{invitation})
+    <insert id="insertregister" parameterType="user">
+        insert into sys_user(tel,password,email,invitation) value(#{tel},#{password},#{email},#{invitation})
     </insert>
 
-<!--    <select id="logincheck" resultMap="BaseResult">
-        SELECT * from sys_user
+    <select id="selectByTel" resultType="user">
+        select * from sys_user where tel = #{tel};
+    </select>
+
+    <update id="updateUser" parameterType="user">
+        update sys_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="tel != null">
+                tel = #{tel},
+            </if>
+            <if test="email != null">
+                email = #{email},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+        </trim>
         <where>
-        <if test="tel != null and tel != ''">
-            and 'tel' = #{tel}
-        </if>
-
-        <if test="password != null and password != ''">
-            AND 'password' = #{password}
-        </if>
-    </where>
-    </select>-->
-
-
-
+            id = #{id}
+        </where>
+    </update>
 </mapper>

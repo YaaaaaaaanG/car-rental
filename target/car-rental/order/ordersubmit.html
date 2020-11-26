@@ -137,13 +137,13 @@
             var getid = window.location.search;
             $.ajax({
                 type:"get",
-                url:"/carsys/city/citys.do"+getid,
+                url:"/city/selectById"+getid,
                 dataType:"json",
                 success:function(data){
                     if(data.code==1) {
                         var infos = data.info;
-                        vm.getcitys = infos.getCity;
-                        vm.backcitys = infos.backCity;
+                        vm.getcitys = infos[0];
+                        vm.backcitys = infos[1];
                     }
                 },
                 error : function(){
@@ -161,11 +161,11 @@
             var getid = window.location.search;
             $.ajax({
                 type:"get",
-                url:"/carsys/car/findcar.do"+getid,
+                url:"/car/selectById"+getid,
                 dataType:"json",
                 success:function(data){
                     if(data.code==1) {
-                        vm.infos = data.info;
+                        vm.infos = data.info[0];
                     }
                 },
                 error : function(){
@@ -185,7 +185,7 @@
             var total = $("#total").html();
             $.ajax({
                 type:"get",
-                url:"/carsys/order/add.do"+id + "&oprice="+ total,
+                url:"/order/insertOrder"+id + "&oprice="+ total,
                 dataType:"json",
                 success:function(data){
                         alert(data.info);

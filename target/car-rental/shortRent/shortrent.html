@@ -26,7 +26,7 @@
                 <label data-v-67ef3a4a v-if="denglu">
                     <a data-v-67ef3a4a href="#">你好，</a>
                     <a data-v-67ef3a4a href="#" class="colorRed">/</a>
-                    <a data-v-67ef3a4a href="../pagehome/index.html" class="colorRed" style="margin-right: 10px;">[退出]</a>
+                    <a data-v-67ef3a4a href="" onclick="loginOut()" class="colorRed" style="margin-right: 10px;">[退出]</a>
                 </label>
 
 
@@ -158,7 +158,7 @@
     function loadfirst(pid){
         $.ajax({
             type:"post",
-            url:"/carsys/city/select.do?pid="+pid,
+            url:"/city/selectAllCity?pid="+pid,
             dataType:"json",
             success:function(data){
                 //id为0时为父类
@@ -206,7 +206,7 @@
     function load(pid){
         $.ajax({
             type:"post",
-            url:"/carsys/city/select.do?pid="+pid,
+            url:"/city/selectAllCity?pid="+pid,
             dataType:"json",
             success:function(data){
                 //id为0时为父类
@@ -250,7 +250,7 @@
     $(function () {
         $.ajax({
             type:"post",
-            url:"/carsys/user/denglu.do",
+            url:"/user/checkLogin",
             dataType:"json",
             success:function(data){
                 //id为0时为父类
@@ -264,6 +264,21 @@
             }
         });
     })
+
+    function loginOut() {
+        $.ajax({
+            type:"post",
+            url:"/user/loginOut",
+            dataType:"json",
+            success:function (data) {
+                if (data.code == 1){
+                    window.location.href="/pagehome/index.html"
+                }else {
+                    alert("退出失败")
+                }
+            }
+        })
+    }
 
 </script>
 
