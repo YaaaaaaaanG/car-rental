@@ -1,5 +1,6 @@
 package com.qf.pojo;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,11 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
-
+public class Order {
     private Integer id;
-    private String tel;
-    private String password;
-    private String email;
-    private String invitation;
+    private Integer cid;
+    private Integer uid;
+    private Integer getid;
+    private Integer backid;
+    private Double oprice;
+    private String status;
 }

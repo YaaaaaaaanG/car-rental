@@ -1,10 +1,13 @@
 package com.qf.service;
 
 import com.qf.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserService {
 
-    User login(User user);
+    Integer insertregister(User user);
 
-    Integer register(User user);
+    User selectByTel(@Param("tel") String tel);
+
+    Integer updateUser(User user);
 }

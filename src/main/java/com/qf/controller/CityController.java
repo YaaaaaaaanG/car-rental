@@ -7,18 +7,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @RequestMapping("/city")
 @RestController
+@SessionAttributes("user")
 public class CityController {
 
     @Autowired
     private CityService cityService;
 
-    @RequestMapping(value = "/selectAllCity", method = RequestMethod.POST)
+    @RequestMapping(value = "/selectAllCity",method = RequestMethod.POST)
     public CityBaseResp selectAllCity(Integer pid){
         List<City> cities = cityService.selectAllCity(pid);
         CityBaseResp cityBaseResp = new CityBaseResp();

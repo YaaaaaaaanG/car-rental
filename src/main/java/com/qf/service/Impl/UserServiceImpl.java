@@ -10,15 +10,20 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserMapper usermapper;
+    UserMapper userMapper;
 
     @Override
-    public User login(User user) {
-        return usermapper.login(user);
+    public Integer insertregister(User user) {
+        return userMapper.insertregister(user);
     }
 
     @Override
-    public Integer register(User user) {
-        return usermapper.register(user);
+    public User selectByTel(String tel) {
+        return userMapper.selectByTel(tel);
+    }
+
+    @Override
+    public Integer updateUser(User user) {
+        return userMapper.updateUser(user);
     }
 }
